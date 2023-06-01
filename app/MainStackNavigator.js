@@ -4,16 +4,22 @@ import { StyleSheet } from "react-native";
 import Signup from "./Screens/Signup/Signup.js";
 import WelcomeScreen from "./Screens/Welcome/WelcomeScreen.js";
 import Login from "./Screens/Login/login.js";
+import Home from "./Screens/Home/Home.js";
 const Stack = createNativeStackNavigator();
 
 export default function MainStackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
+        {/* <Stack.Screen
+          name="Welcome"
           component={WelcomeScreen}
           options={{ title: "PassKey", headerShown: false }}
+        /> */}
+        <Stack.Screen
+          name="Home"
+          options={{ title: "", headerShown: false }}
+          component={Home}
         />
         <Stack.Screen
           name="SignUp"
