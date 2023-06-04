@@ -7,16 +7,18 @@ export default function SolidButton({
   width,
   label,
   navigateTo,
+  handleSubmit,
 }) {
   console.log({ navigateTo });
   const handleClick = () => {
-    const path = toString(navigateTo);
-    console.log(path);
-    navigation.navigate("Signup");
+    // const path = toString(navigateTo);
+    // console.log({ path }, "i am in");
+    console.log(" i am called");
+    handleSubmit();
   };
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("SignUp")}
+      onPress={() => handleClick()}
       style={{
         height: height,
         width: `${width}%`,

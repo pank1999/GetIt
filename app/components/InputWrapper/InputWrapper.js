@@ -1,11 +1,17 @@
 import React from "react";
 import { TextInput, View, StyleSheet, Text } from "react-native";
 
-export default function InputWrapper({ label }) {
+export default function InputWrapper({ label, setInputValue }) {
   return (
     <View style={styles.inputContainer}>
       {/* <Text style={styles.label}> {label} </Text> */}
-      <TextInput style={styles.input} placeholder={label} />
+      <TextInput
+        style={styles.input}
+        placeholder={label}
+        onChangeText={(text) => {
+          setInputValue(text);
+        }}
+      />
     </View>
   );
 }

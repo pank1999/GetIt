@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,24 +6,53 @@ import {
   SafeAreaView,
   TouchableHighlight,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import InputWrapper from "../../components/InputWrapper/InputWrapper";
 import SolidButton from "../../components/Button/SolidButton";
 import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder";
+// import Auth from "firebase/auth";
+import { auth } from "../../../Firebase";
 
 export default function Signup({ navigation }) {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+
+  const handleRegister = () => {
+    console.log(email, password);
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log(user);
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.top}>
         <Text style={styles.heading}>SignUp</Text>
       </View>
       <View style={styles.formContainer}>
-        <InputWrapper label="Email" />
-        <InputWrapper label="Phone Number" />
-        <InputWrapper label="Password" />
+        <InputWrapper value={email} label="Email" setInputValue={setEmail} />
+        <InputWrapper
+          value={password}
+          label="Password"
+          setInputValue={setPassword}
+        />
+        <InputWrapper
+          value={confirmPassword}
+          label="Confirm Password"
+          setInputValue={setConfirmPassword}
+        />
         <View style={styles.buttonContainer}>
           <SolidButton
             navigation={navigation}
+            handleSubmit={handleRegister}
             navigateTo="Login"
             height={50}
             width={100}

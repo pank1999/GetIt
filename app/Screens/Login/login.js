@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,25 @@ import InputWrapper from "../../components/InputWrapper/InputWrapper";
 import SolidButton from "../../components/Button/SolidButton";
 import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder";
 
+import { auth } from "./../../../Firebase.js";
+
 export default function Login({ navigation }) {
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleLogin = () => {
+    auth
+      .createUserWithEmailAndPassword(loginDetails.email, loginDetails.password)
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.top}>

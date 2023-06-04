@@ -16,11 +16,12 @@ export default function MainStackNavigator() {
           component={WelcomeScreen}
           options={{ title: "PassKey", headerShown: false }}
         /> */}
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Home"
           options={{ title: "", headerShown: false }}
           component={Home}
-        />
+        /> */}
+
         <Stack.Screen
           name="SignUp"
           options={{ title: "", headerShown: false }}
