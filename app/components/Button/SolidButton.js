@@ -9,10 +9,7 @@ export default function SolidButton({
   navigateTo,
   handleSubmit,
 }) {
-  console.log({ navigateTo });
   const handleClick = () => {
-    // const path = toString(navigateTo);
-    // console.log({ path }, "i am in");
     console.log(" i am called");
     handleSubmit();
   };

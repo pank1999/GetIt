@@ -10,42 +10,47 @@ import {
 import InputWrapper from "../../components/InputWrapper/InputWrapper";
 import SolidButton from "../../components/Button/SolidButton";
 import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder";
-
-import { auth } from "./../../../Firebase.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { authentication } from "../../config/Firebase";
 
 export default function Login({ navigation }) {
-  const [loginDetails, setLoginDetails] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [signedInUser, setSignedInUser] = useState();
 
   const handleLogin = () => {
-    auth
-      .createUserWithEmailAndPassword(loginDetails.email, loginDetails.password)
-      .then((user) => {
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(email, password);
+    signInWithEmailAndPassword(authentication, email, password).then((user) => {
+      if (user) {
+        setSignedInUser(user);
+        navigation.navigate("Home");
+      }
+    });
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.footer}>
+        <Image
+          source={require("./../../assets/logo.png")}
+          style={{ height: 40, width: 40 }}
+        />
+        <Text>PassKey</Text>
+      </View>
       <View style={styles.top}>
         <Text style={styles.heading}>Login</Text>
       </View>
       <View style={styles.formContainer}>
         {/* <InputWrapper label="Email" /> */}
-        <InputWrapper label="Phone Number" />
-        <InputWrapper label="Password" />
+        <InputWrapper label="Email" setInputValue={setEmail} />
+        <InputWrapper label="Password" setInputValue={setPassword} />
         <View style={styles.buttonContainer}>
           <SolidButton
             navigation={navigation}
-            // navigateTo=""
             height={50}
             width={100}
             label="Submit"
+            handleSubmit={handleLogin}
           />
         </View>
         <View style={styles.middleTextContainer}>
@@ -59,13 +64,6 @@ export default function Login({ navigation }) {
             width={100}
             label="Signup"
           />
-        </View>
-        <View style={styles.footer}>
-          <Image
-            source={require("./../../assets/logo.png")}
-            style={{ height: 40, width: 40 }}
-          />
-          <Text>PassKey</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -102,6 +100,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     alignItems: "center",
-    paddingBottom: 10,
+    paddingTop: 20,
   },
 });

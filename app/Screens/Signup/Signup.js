@@ -11,29 +11,32 @@ import {
 import InputWrapper from "../../components/InputWrapper/InputWrapper";
 import SolidButton from "../../components/Button/SolidButton";
 import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder";
-// import Auth from "firebase/auth";
-import { auth } from "../../../Firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { authentication } from "../../config/Firebase";
 
 export default function Signup({ navigation }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState();
 
   const handleRegister = () => {
-    console.log(email, password);
-    auth
-      .createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(authentication, email, password)
       .then((user) => {
         console.log(user);
         navigation.navigate("Login");
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log(error));
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.footer}>
+        <Image
+          source={require("./../../assets/logo.png")}
+          style={{ height: 40, width: 40 }}
+        />
+        <Text>PassKey</Text>
+      </View>
       <View style={styles.top}>
         <Text style={styles.heading}>SignUp</Text>
       </View>
@@ -71,13 +74,6 @@ export default function Signup({ navigation }) {
             label="Login"
           />
         </View>
-        <View style={styles.footer}>
-          <Image
-            source={require("./../../assets/logo.png")}
-            style={{ height: 40, width: 40 }}
-          />
-          <Text>PassKey</Text>
-        </View>
       </View>
     </SafeAreaView>
   );
@@ -113,6 +109,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     alignItems: "center",
-    paddingBottom: 10,
+    paddingTop: 10,
   },
 });

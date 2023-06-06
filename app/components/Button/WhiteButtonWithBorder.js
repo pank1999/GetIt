@@ -7,9 +7,18 @@ export default function WhiteButtonWithBorder({
   width,
   label,
 }) {
+  const handleClick = () => {
+    if (label === "Signup") {
+      console.log("signup");
+      navigation.navigate("Signup");
+    } else {
+      console.log("login");
+      navigation.navigate("Login");
+    }
+  };
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(`${label}`)}
+      onPress={() => handleClick()}
       style={{
         height: height,
         width: `${width}%`,

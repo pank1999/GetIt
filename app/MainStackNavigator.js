@@ -11,26 +11,25 @@ export default function MainStackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
           options={{ title: "PassKey", headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
-          name="Home"
-          options={{ title: "", headerShown: false }}
-          component={Home}
-        /> */}
-
-        <Stack.Screen
-          name="SignUp"
-          options={{ title: "", headerShown: false }}
-          component={Signup}
         />
         <Stack.Screen
           name="Login"
           options={{ title: "", headerShown: false }}
           component={Login}
+        />
+        <Stack.Screen
+          name="Signup"
+          options={{ title: "", headerShown: false }}
+          component={Signup}
+        />
+        <Stack.Screen
+          name="Home"
+          options={{ title: "", headerShown: false }}
+          component={Home}
         />
       </Stack.Navigator>
     </NavigationContainer>

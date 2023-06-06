@@ -11,11 +11,11 @@ import BottomTabNavigation from "../../components/BottomTabNavigation/BottomTabN
 import Header from "../../components/Header/Header";
 import SecretItem from "../../components/SecretItem/SecretItem";
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar />
-      <Header />
+      <Header navigation={navigation} />
       <View style={styles.mainAreaView}>
         <View style={styles.searchContainer}>
           <TextInput style={styles.input} placeholder="search..." />
