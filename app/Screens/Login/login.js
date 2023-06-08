@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableHighlight,
   Image,
+  StatusBar,
 } from "react-native";
 import InputWrapper from "../../components/InputWrapper/InputWrapper";
 import SolidButton from "../../components/Button/SolidButton";
@@ -30,12 +31,13 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar />
       <View style={styles.footer}>
         <Image
           source={require("./../../assets/logo.png")}
-          style={{ height: 40, width: 40 }}
+          style={{ height: 60, width: 60 }}
         />
-        <Text>PassKey</Text>
+        <Text style={styles.title}>PassKey</Text>
       </View>
       <View style={styles.top}>
         <Text style={styles.heading}>Login</Text>
@@ -75,9 +77,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  title: {
+    fontSize: 30,
+    alignItems: "center",
+    fontWeight: "600",
+  },
   heading: {
     fontSize: 20,
     alignItems: "center",
+    fontWeight: "600",
   },
   top: {
     flex: 1,
@@ -100,6 +108,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 20,
+    paddingTop: 30,
   },
 });

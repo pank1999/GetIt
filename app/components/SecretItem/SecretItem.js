@@ -10,8 +10,8 @@ export default function SecretItem() {
         <Icon name="google" size={30} />
       </View>
       <View>
-        <Text>Gmail</Text>
-        <Text>pankajpandey@gmail.com</Text>
+        <Text style={styles.itemHeading}>Gmail</Text>
+        <Text style={styles.itemDetails}>pankajpandey@gmail.com</Text>
       </View>
       <View>
         <Icon name="arrow-circle-right" size={30} color={colors.primary} />
@@ -26,9 +26,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: colors.grey,
+    backgroundColor: colors.white,
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
+  },
+  itemHeading: {
+    fontWeight: "500",
+  },
+  itemDetails: {
+    fontWeight: "300",
   },
 });

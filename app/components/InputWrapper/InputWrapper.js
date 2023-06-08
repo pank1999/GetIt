@@ -1,13 +1,13 @@
 import React from "react";
 import { TextInput, View, StyleSheet, Text } from "react-native";
 
-export default function InputWrapper({ label, setInputValue }) {
+export default function InputWrapper({ label, setInputValue, showLabel }) {
   return (
     <View style={styles.inputContainer}>
-      {/* <Text style={styles.label}> {label} </Text> */}
+      {showLabel ? <Text style={styles.label}> {label} </Text> : ""}
       <TextInput
         style={styles.input}
-        placeholder={label}
+        placeholder={showLabel ? "" : label}
         onChangeText={(text) => {
           setInputValue(text);
         }}
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: "100%",
-    // backgroundColor: "#F3F3F3",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "#A9A9A9",

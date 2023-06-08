@@ -10,7 +10,6 @@ export default function SolidButton({
   handleSubmit,
 }) {
   const handleClick = () => {
-    console.log(" i am called");
     handleSubmit();
   };
   return (

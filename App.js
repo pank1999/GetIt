@@ -1,10 +1,5 @@
-import MainStackNavigator from './app/MainStackNavigator.js';
-
+import Navigation from "./app/Navigations/Navigation.js";
 
 export default function App() {
-  return (
-   <MainStackNavigator />
-  );
+  return <Navigation />;
 }
-
-

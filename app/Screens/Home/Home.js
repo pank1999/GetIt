@@ -7,7 +7,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import BottomTabNavigation from "../../components/BottomTabNavigation/BottomTabNavigation";
+// import TabNavigation from "../../Navigations/TabNavigation";
 import Header from "../../components/Header/Header";
 import SecretItem from "../../components/SecretItem/SecretItem";
 
@@ -30,17 +30,10 @@ export default function Home({ navigation }) {
             <SecretItem />
             <SecretItem />
             <SecretItem />
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
           </View>
         </ScrollView>
       </View>
-      <BottomTabNavigation />
+      {/* <TabNavigation /> */}
     </View>
   );
 }
@@ -63,7 +56,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   input: {
-    height: 50,
+    height: 40,
     width: "100%",
     // backgroundColor: "#F3F3F3",
     borderStyle: "solid",
