@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils/styles";
 
 export default function SecretItem() {
@@ -14,7 +14,7 @@ export default function SecretItem() {
         <Text style={styles.itemDetails}>pankajpandey@gmail.com</Text>
       </View>
       <View>
-        <Icon name="arrow-circle-right" size={30} color={colors.primary} />
+        <Icon name="delete" size={20} color={colors.danger} />
       </View>
     </View>
   );
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     padding: 10,
     borderRadius: 10,
-    marginTop: 10,
   },
   itemHeading: {
     fontWeight: "500",

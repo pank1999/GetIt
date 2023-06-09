@@ -11,9 +11,12 @@ export default function WhiteButtonWithBorder({
     if (label === "Signup") {
       console.log("signup");
       navigation.navigate("Signup");
-    } else {
+    } else if(label === "Login")  {
       console.log("login");
       navigation.navigate("Login");
+    }else if(label === "Save"){
+       console.log("login");
+       navigation.navigate("Secret");
     }
   };
   return (

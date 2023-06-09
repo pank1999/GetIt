@@ -7,9 +7,9 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-// import TabNavigation from "../../Navigations/TabNavigation";
 import Header from "../../components/Header/Header";
 import SecretItem from "../../components/SecretItem/SecretItem";
+import { TouchableHighlight } from "react-native";
 
 export default function Home({ navigation }) {
   return (
@@ -25,11 +25,12 @@ export default function Home({ navigation }) {
         </View>
         <ScrollView>
           <View style={styles.secretContainer}>
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
-            <SecretItem />
+            <TouchableHighlight
+              style={styles.secretItemContainer}
+              onPress={() => navigation.navigate("Secret")}
+            >
+              <SecretItem />
+            </TouchableHighlight>
           </View>
         </ScrollView>
       </View>
@@ -75,5 +76,10 @@ const styles = StyleSheet.create({
   },
   secretContainer: {
     paddingHorizontal: "5%",
+  },
+  secretItemContainer: {
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 10,
   },
 });

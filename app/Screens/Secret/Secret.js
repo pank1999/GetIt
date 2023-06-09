@@ -1,50 +1,25 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React, { useRef, useState } from "react";
-import Header from "../../components/Header/Header";
-import InputWrapper from "../../components/InputWrapper/InputWrapper";
-import SecondaryHeader from "../../components/Header/SecondaryHeader";
-import SolidButton from "../../components/Button/SolidButton";
-import Icon from "react-native-vector-icons/AntDesign";
+import { SafeAreaView } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-
+import { colors } from "../../utils/styles";
+import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder";
 import ActionSheet from "react-native-actions-sheet";
+import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { Icons } from "../../utils/constant";
+import { Touchable } from "react-native";
+import { TouchableHighlight } from "react-native";
 
-const AddSecret = ({ navigation }) => {
+const Secret = ({ navigation }) => {
   const actionSheetRef = useRef(null);
   const [selectedIcon, setSelectedIcon] = useState();
-  const [title, setTitle] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
 
-  const onSubmit = () => {
-    const secretDetails = {
-      title,
-      email,
-      password,
-      logo: selectedIcon,
-    };
-    console.log({ secretDetails });
-    setEmail("");
-    setPassword("");
-    setTitle("");
-    setSelectedIcon("");
-    navigation.navigate("Home");
-  };
   return (
-    <View style={styles.wrapper}>
-      <StatusBar />
-      <SecondaryHeader title="Add secret" />
+    <SafeAreaView>
       <View style={styles.addSecretContainer}>
         <View style={styles.formContainer}>
           <View style={styles.secretIcon}>
-            <Icon name={selectedIcon ?? ""} size={50} />
+            <AntDesignIcon name={selectedIcon} size={50} />
             <View style={styles.editIcon}>
               <FontAwesomeIcon
                 name="pencil"
@@ -53,30 +28,32 @@ const AddSecret = ({ navigation }) => {
               />
             </View>
           </View>
-          <View style={styles.formItem}>
-            <InputWrapper label="Title" setInputValue={setTitle} showLabel />
+          <View style={styles.ItemContainer}>
+            <View style={styles.Item}>
+              <Text>Email/Username</Text>
+              <FontAwesomeIcon name="pencil" size={15} />
+            </View>
+            <View style={styles.ItemBottom}>
+              <Text>pankajpandey@gmail.com</Text>
+            </View>
           </View>
-          <View style={styles.formItem}>
-            <InputWrapper
-              label="Email/Username"
-              showLabel
-              setInputValue={setEmail}
-            />
-          </View>
-          <View style={styles.formItem}>
-            <InputWrapper
-              label="Password"
-              showLabel
-              setInputValue={setPassword}
-            />
+          <View style={styles.ItemContainer}>
+            <View style={styles.Item}>
+              <Text>Password</Text>
+              <FontAwesomeIcon name="pencil" size={15} />
+            </View>
+            <View style={styles.ItemBottom}>
+              {/* <TextInput style={styles.input} /> */}
+              <Text>*********</Text>
+              <FontAwesomeIcon name="eye" size={20} />
+            </View>
           </View>
           <View style={styles.formButton}>
-            <SolidButton
+            <WhiteButtonWithBorder
               navigation={navigation}
               height={50}
               width={100}
               label="Save"
-              handleSubmit={onSubmit}
             />
           </View>
         </View>
@@ -85,7 +62,7 @@ const AddSecret = ({ navigation }) => {
         <View style={styles.actionSheet}>
           <View style={styles.IconContainer}>
             {Icons.map((IconItem, index) => (
-              <Icon
+              <AntDesignIcon
                 name={IconItem}
                 key={index}
                 onPress={() => {
@@ -102,11 +79,11 @@ const AddSecret = ({ navigation }) => {
           </TouchableHighlight>
         </View>
       </ActionSheet>
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default AddSecret;
+export default Secret;
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -133,13 +110,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  formItem: {
+  ItemContainer: {
+    justifyContent: "center",
     marginTop: 20,
+    width: "80%",
+  },
+  Item: {
+    // flex: 1,
     width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  ItemBottom: {
+    marginTop: 10,
+    flexDirection: "row",
+    backgroundColor: colors.white,
+    padding: 20,
+    borderRadius: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   formButton: {
     width: "80%",
-    marginTop: "20%",
+    marginTop: "60%",
   },
   editIcon: {
     position: "absolute",
@@ -171,4 +164,13 @@ const styles = StyleSheet.create({
   Icon: {
     padding: 10,
   },
+  //   input: {
+  //     height: 30,
+  //     width: "100%",
+  //     borderStyle: "solid",
+  //     // borderWidth: 1,
+  //     // borderColor: "#A9A9A9",
+  //     borderRadius: 45,
+  //     paddingLeft: 20,
+  //   },
 });
