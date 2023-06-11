@@ -1,13 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React, { useContext } from "react";
 import AuthStackNavigator from "./AuthStackNavigator";
-import TabNavigation from "./TabNavigation";
 import AppStackNavigator from "./AppStackNavigator";
+import { AuthContext } from "../auth/AuthContext";
 
 export default function Navigation() {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <NavigationContainer>
-      {false ? <AuthStackNavigator /> : <AppStackNavigator />}
+      {!isLoggedIn ? <AuthStackNavigator /> : <AppStackNavigator />}
     </NavigationContainer>
   );
 }

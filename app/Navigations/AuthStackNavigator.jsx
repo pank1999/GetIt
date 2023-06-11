@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
-import Signup from "../Screens/Signup/Signup.js";
-import WelcomeScreen from "../Screens/Welcome/WelcomeScreen.js";
-import Login from "../Screens/Login/login.js";
-import Home from "../Screens/Home/Home.js";
+import Signup from "../Screens/Signup/Signup";
+import WelcomeScreen from "../Screens/Welcome/WelcomeScreen";
+import Login from "../Screens/Login/login";
+import Home from "../Screens/Home/Home";
 const Stack = createNativeStackNavigator();
 
 export default function AuthStackNavigator() {
@@ -23,11 +23,6 @@ export default function AuthStackNavigator() {
         name="Signup"
         options={{ title: "", headerShown: false }}
         component={Signup}
-      />
-      <Stack.Screen
-        name="Home"
-        options={{ title: "", headerShown: false }}
-        component={Home}
       />
     </Stack.Navigator>
   );

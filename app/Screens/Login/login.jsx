@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,18 +13,17 @@ import SolidButton from "../../components/Button/SolidButton";
 import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { authentication } from "../../config/Firebase";
+import { AuthContext } from "../../auth/AuthContext";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [signedInUser, setSignedInUser] = useState();
-
+  const { logIn } = useContext(AuthContext);
   const handleLogin = () => {
     console.log(email, password);
     signInWithEmailAndPassword(authentication, email, password).then((user) => {
       if (user) {
-        setSignedInUser(user);
-        navigation.navigate("Home");
+        logIn(user._tokenResponse.idToken, user.user);
       }
     });
   };

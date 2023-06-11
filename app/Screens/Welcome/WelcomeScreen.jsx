@@ -5,6 +5,7 @@ import SolidButton from "../../components/Button/SolidButton";
 export default function WelcomeScreen({ navigation }) {
   const handleClick = () => {
     navigation.navigate("Login");
+    console.log("login");
   };
   return (
     <ImageBackground

@@ -56,7 +56,7 @@ export default function Signup({ navigation }) {
           <SolidButton
             navigation={navigation}
             handleSubmit={handleRegister}
-            navigateTo="Login"
+            navigateTo="Home"
             height={50}
             width={100}
             label="Submit"

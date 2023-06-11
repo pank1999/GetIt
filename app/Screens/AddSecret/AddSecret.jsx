@@ -1,25 +1,60 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useRef, useState } from "react";
-import { SafeAreaView } from "react-native";
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from "react-native";
+import React, { useContext, useRef, useState } from "react";
+import InputWrapper from "../../components/InputWrapper/InputWrapper";
+import SecondaryHeader from "../../components/Header/SecondaryHeader";
+import SolidButton from "../../components/Button/SolidButton";
+import Icon from "react-native-vector-icons/AntDesign";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import { colors } from "../../utils/styles";
-import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import ActionSheet from "react-native-actions-sheet";
-import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { Icons } from "../../utils/constant";
-import { Touchable } from "react-native";
-import { TouchableHighlight } from "react-native";
+import { db } from "../../config/Firebase";
+import { AuthContext } from "../../auth/AuthContext";
 
-const Secret = ({ navigation }) => {
+const AddSecret = ({ navigation }) => {
   const actionSheetRef = useRef(null);
   const [selectedIcon, setSelectedIcon] = useState();
-
+  const [title, setTitle] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const { user } = useContext(AuthContext);
+  const onSubmit = async () => {
+    const secretDetails = {
+      title,
+      emailOrUsername: email,
+      password,
+      logo: selectedIcon,
+      userId: user.uid,
+    };
+    console.log({ secretDetails });
+    try {
+      const addedSecret = await addDoc(collection(db, "secret"), secretDetails);
+      console.log("Document written with ID: ", addedSecret.id);
+      if (addedSecret) {
+        setEmail("");
+        setPassword("");
+        setTitle("");
+        setSelectedIcon("");
+        navigation.navigate("Home");
+      }
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
   return (
-    <SafeAreaView>
+    <View style={styles.wrapper}>
+      <StatusBar />
+      {/* <SecondaryHeader title="Add secret" /> */}
       <View style={styles.addSecretContainer}>
         <View style={styles.formContainer}>
           <View style={styles.secretIcon}>
-            <AntDesignIcon name={selectedIcon} size={50} />
+            <Icon name={selectedIcon ?? ""} size={50} />
             <View style={styles.editIcon}>
               <FontAwesomeIcon
                 name="pencil"
@@ -28,32 +63,30 @@ const Secret = ({ navigation }) => {
               />
             </View>
           </View>
-          <View style={styles.ItemContainer}>
-            <View style={styles.Item}>
-              <Text>Email/Username</Text>
-              <FontAwesomeIcon name="pencil" size={15} />
-            </View>
-            <View style={styles.ItemBottom}>
-              <Text>pankajpandey@gmail.com</Text>
-            </View>
+          <View style={styles.formItem}>
+            <InputWrapper label="Title" setInputValue={setTitle} showLabel />
           </View>
-          <View style={styles.ItemContainer}>
-            <View style={styles.Item}>
-              <Text>Password</Text>
-              <FontAwesomeIcon name="pencil" size={15} />
-            </View>
-            <View style={styles.ItemBottom}>
-              {/* <TextInput style={styles.input} /> */}
-              <Text>*********</Text>
-              <FontAwesomeIcon name="eye" size={20} />
-            </View>
+          <View style={styles.formItem}>
+            <InputWrapper
+              label="Email/Username"
+              showLabel
+              setInputValue={setEmail}
+            />
+          </View>
+          <View style={styles.formItem}>
+            <InputWrapper
+              label="Password"
+              showLabel
+              setInputValue={setPassword}
+            />
           </View>
           <View style={styles.formButton}>
-            <WhiteButtonWithBorder
+            <SolidButton
               navigation={navigation}
               height={50}
               width={100}
               label="Save"
+              handleSubmit={onSubmit}
             />
           </View>
         </View>
@@ -62,7 +95,7 @@ const Secret = ({ navigation }) => {
         <View style={styles.actionSheet}>
           <View style={styles.IconContainer}>
             {Icons.map((IconItem, index) => (
-              <AntDesignIcon
+              <Icon
                 name={IconItem}
                 key={index}
                 onPress={() => {
@@ -79,11 +112,11 @@ const Secret = ({ navigation }) => {
           </TouchableHighlight>
         </View>
       </ActionSheet>
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default Secret;
+export default AddSecret;
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -110,29 +143,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  ItemContainer: {
-    justifyContent: "center",
+  formItem: {
     marginTop: 20,
-    width: "80%",
-  },
-  Item: {
-    // flex: 1,
     width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  ItemBottom: {
-    marginTop: 10,
-    flexDirection: "row",
-    backgroundColor: colors.white,
-    padding: 20,
-    borderRadius: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
   },
   formButton: {
     width: "80%",
-    marginTop: "60%",
+    marginTop: "20%",
   },
   editIcon: {
     position: "absolute",
@@ -164,13 +181,4 @@ const styles = StyleSheet.create({
   Icon: {
     padding: 10,
   },
-  //   input: {
-  //     height: 30,
-  //     width: "100%",
-  //     borderStyle: "solid",
-  //     // borderWidth: 1,
-  //     // borderColor: "#A9A9A9",
-  //     borderRadius: 45,
-  //     paddingLeft: 20,
-  //   },
 });

@@ -27,9 +27,9 @@ export default function Header({ navigation }) {
       <Image source={require("./../../assets/logo.png")} style={styles.logo} />
       <Icon
         name="sign-out"
-        onPress={logout}
+        onPress={() => logout}
         size={30}
-        style={{ marginRight: 10 }}
+        style={{ marginRight: 20 }}
       />
     </View>
   );

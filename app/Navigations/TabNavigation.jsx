@@ -13,7 +13,7 @@ export default function TabNavigation() {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
+    <Tab.Navigator screenOptions={{ tabBarShowLabel: true }}>
       <Tab.Screen
         name="Home"
         component={Home}
@@ -43,7 +43,7 @@ export default function TabNavigation() {
               />
             </View>
           ),
-          headerShown: false,
+          headerShown: true,
         }}
       />
       <Tab.Screen
