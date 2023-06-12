@@ -23,7 +23,7 @@ export default function Home({ navigation }) {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    filterSecrets("");
+    setFilteredSecrets(secrets);
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
@@ -54,8 +54,7 @@ export default function Home({ navigation }) {
             id: doc.id,
           }));
           setSecrets(newData);
-          setFilteredSecrets;
-          newData;
+          setFilteredSecrets(newData);
         });
       };
       fetchSecrets();
@@ -63,6 +62,9 @@ export default function Home({ navigation }) {
       console.log(error);
     }
   }, [refreshing]);
+
+
+  
   return (
     <View style={styles.container}>
       <StatusBar />

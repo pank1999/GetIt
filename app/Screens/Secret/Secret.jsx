@@ -11,11 +11,13 @@ import { Touchable } from "react-native";
 import { TouchableHighlight } from "react-native";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/Firebase";
+import SecondaryHeader from "../../components/Header/SecondaryHeader";
 
 const Secret = ({ navigation, route }) => {
   const { id } = route.params;
   const [secret, setSecret] = useState({});
   const [selectedIcon, setSelectedIcon] = useState();
+  const [hidePassword, setHidePassword] = useState(true);
 
   useEffect(() => {
     const getSecret = async () => {
@@ -32,9 +34,20 @@ const Secret = ({ navigation, route }) => {
     getSecret();
   }, []);
   const actionSheetRef = useRef(null);
-
+  const deleteActionSheetRef = useRef(null);
+  const openDeleteActionSheet = () => {
+    console.log(" open delete");
+    deleteActionSheetRef.current.show();
+    // actionSheetRef.current?.show();
+  };
   return (
     <SafeAreaView>
+      <SecondaryHeader
+        title="Secret"
+        rightIconName="more-vertical"
+        rightFunction={openDeleteActionSheet}
+        navigation={navigation}
+      />
       <View style={styles.addSecretContainer}>
         <View style={styles.formContainer}>
           <View style={styles.secretIcon}>
@@ -62,9 +75,25 @@ const Secret = ({ navigation, route }) => {
               <FontAwesomeIcon name="pencil" size={15} />
             </View>
             <View style={styles.ItemBottom}>
-              {/* <TextInput style={styles.input} /> */}
-              <Text>{secret.password}</Text>
-              <FontAwesomeIcon name="eye" size={20} />
+              {hidePassword ? (
+                <>
+                  <Text>********</Text>
+                  <FontAwesomeIcon
+                    name="eye"
+                    size={20}
+                    onPress={() => setHidePassword(false)}
+                  />
+                </>
+              ) : (
+                <>
+                  <Text>{secret.password}</Text>
+                  <FontAwesomeIcon
+                    name="eye-slash"
+                    size={20}
+                    onPress={() => setHidePassword(true)}
+                  />
+                </>
+              )}
             </View>
           </View>
           <View style={styles.formButton}>
@@ -77,6 +106,21 @@ const Secret = ({ navigation, route }) => {
           </View>
         </View>
       </View>
+
+      {/* delete secret action sheet */}
+      <ActionSheet ref={deleteActionSheetRef}>
+        <View style={styles.actionSheet}>
+          <View style={styles.deleteButton}>
+            <Text>Delete Secret</Text>
+          </View>
+          <TouchableHighlight
+            onPress={() => deleteActionSheetRef.current?.hide()}
+          >
+            <Text style={styles.close}>Close</Text>
+          </TouchableHighlight>
+        </View>
+      </ActionSheet>
+      {/* edit icon action sheet */}
       <ActionSheet ref={actionSheetRef}>
         <View style={styles.actionSheet}>
           <View style={styles.IconContainer}>
@@ -183,13 +227,9 @@ const styles = StyleSheet.create({
   Icon: {
     padding: 10,
   },
-  //   input: {
-  //     height: 30,
-  //     width: "100%",
-  //     borderStyle: "solid",
-  //     // borderWidth: 1,
-  //     // borderColor: "#A9A9A9",
-  //     borderRadius: 45,
-  //     paddingLeft: 20,
-  //   },
+  deleteButton: {
+    padding: "10px 20px",
+    backgroundColor: "red",
+    color: "white",
+  },
 });

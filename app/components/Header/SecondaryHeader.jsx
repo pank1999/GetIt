@@ -1,13 +1,31 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
+import FeatherIcon from "react-native-vector-icons/Feather";
 import { colors } from "../../utils/styles";
-const SecondaryHeader = ({ title }) => {
+const SecondaryHeader = ({
+  title,
+  rightIconName,
+  rightFunction,
+  navigation,
+}) => {
   return (
     <View style={styles.headerContainer}>
-      <Icon name="arrowleft" size={30} style={{ marginLeft: 10 }} />
+      <Icon
+        name="arrowleft"
+        onPress={() => navigation.goBack()}
+        size={30}
+        style={{ paddingLeft: 10 }}
+      />
       <Text style={styles.title}>{title}</Text>
-      <Icon name="user" size={30} style={{ marginRight: 10 }} />
+      {rightIconName && (
+        <FeatherIcon
+          name={rightIconName}
+          size={25}
+          style={{ marginRight: 10 }}
+          onPress={() => console.log("i called")}
+        />
+      )}
     </View>
   );
 };

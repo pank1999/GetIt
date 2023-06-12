@@ -26,9 +26,6 @@ function MyDrawer() {
     <Drawer.Navigator
       useLegacyImplementation
       drawerContent={(props) => <CustomDrawerContent {...props} />}
-    >
-      <Drawer.Screen name="Feed" component={Feed} />
-      <Drawer.Screen name="Notifications" component={Notifications} />
-    </Drawer.Navigator>
+    ></Drawer.Navigator>
   );
 }

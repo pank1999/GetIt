@@ -17,20 +17,25 @@ export default function Header({ navigation }) {
   };
   return (
     <View style={styles.headerContainer}>
-      <Icon name="user-circle-o" size={30} style={{ marginLeft: 10 }} />
       {/* <Icon
         name="bars"
-        size={30}
+        size={25}
         onPress={() => toggleDrawer()}
-        style={{ marginLeft: 10 }}
+        style={{ marginLeft: 15 }}
       /> */}
       <Image source={require("./../../assets/logo.png")} style={styles.logo} />
       <Icon
+        name="user-circle-o"
+        size={30}
+        style={{ marginRight: 20 }}
+        onPress={() => navigation.navigate("Profile")}
+      />
+      {/* <Icon
         name="sign-out"
         onPress={() => logout}
         size={30}
         style={{ marginRight: 20 }}
-      />
+      /> */}
     </View>
   );
 }

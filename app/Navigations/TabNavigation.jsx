@@ -28,6 +28,17 @@ export default function TabNavigation() {
             </View>
           ),
           headerShown: false,
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? "black" : "grey",
+                fontSize: 10,
+                fontWeight: "500",
+              }}
+            >
+              Home
+            </Text>
+          ),
         }}
       />
       <Tab.Screen
@@ -44,6 +55,17 @@ export default function TabNavigation() {
             </View>
           ),
           headerShown: true,
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? "black" : "grey",
+                fontSize: 10,
+                fontWeight: "500",
+              }}
+            >
+              Add Secret
+            </Text>
+          ),
         }}
       />
       <Tab.Screen
@@ -54,12 +76,23 @@ export default function TabNavigation() {
             <View>
               <FoundationIcon
                 name="clipboard-notes"
-                size={25}
+                size={23}
                 color={focused ? "orange" : "grey"}
               />
             </View>
           ),
           headerShown: false,
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? "black" : "grey",
+                fontSize: 10,
+                fontWeight: "500",
+              }}
+            >
+              Notes
+            </Text>
+          ),
         }}
       />
     </Tab.Navigator>
