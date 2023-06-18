@@ -18,13 +18,15 @@ const SecondaryHeader = ({
         style={{ paddingLeft: 10 }}
       />
       <Text style={styles.title}>{title}</Text>
-      {rightIconName && (
-        <FeatherIcon
+      {rightIconName ? (
+        <Icon
           name={rightIconName}
           size={25}
-          style={{ marginRight: 10 }}
-          onPress={() => console.log("i called")}
+          style={{ marginRight: 30 }}
+          onPress={() => rightFunction()}
         />
+      ) : (
+        <Text></Text>
       )}
     </View>
   );

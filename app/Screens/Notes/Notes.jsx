@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import SecondaryHeader from "./../../components/Header/SecondaryHeader";
 
-const Notes = () => {
+const Notes = ({ navigation }) => {
   return (
-    <View>
-      <Text>Notes</Text>
-    </View>
+    <SafeAreaView>
+      <SecondaryHeader title="Notes" navigation={navigation} />
+      <View>
+        <Text>Notes</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -7,9 +7,8 @@ import WhiteButtonWithBorder from "../../components/Button/WhiteButtonWithBorder
 import ActionSheet from "react-native-actions-sheet";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { Icons } from "../../utils/constant";
-import { Touchable } from "react-native";
 import { TouchableHighlight } from "react-native";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/Firebase";
 import SecondaryHeader from "../../components/Header/SecondaryHeader";
 
@@ -18,6 +17,17 @@ const Secret = ({ navigation, route }) => {
   const [secret, setSecret] = useState({});
   const [selectedIcon, setSelectedIcon] = useState();
   const [hidePassword, setHidePassword] = useState(true);
+
+  // const [modalVisible, setModalVisible] = useState(false);
+
+  const handleDelete = async () => {
+    await deleteDoc(doc(db, "secret", id))
+      .then(() => {
+        alert("secret has been deleted");
+        navigation.navigate("Home");
+      })
+      .catch((error) => console.log(error.message));
+  };
 
   useEffect(() => {
     const getSecret = async () => {
@@ -34,19 +44,15 @@ const Secret = ({ navigation, route }) => {
     getSecret();
   }, []);
   const actionSheetRef = useRef(null);
-  const deleteActionSheetRef = useRef(null);
-  const openDeleteActionSheet = () => {
-    console.log(" open delete");
-    deleteActionSheetRef.current.show();
-    // actionSheetRef.current?.show();
-  };
+
   return (
     <SafeAreaView>
       <SecondaryHeader
         title="Secret"
-        rightIconName="more-vertical"
-        rightFunction={openDeleteActionSheet}
+        rightIconName="delete"
         navigation={navigation}
+        isDelete
+        rightFunction={handleDelete}
       />
       <View style={styles.addSecretContainer}>
         <View style={styles.formContainer}>
@@ -105,21 +111,41 @@ const Secret = ({ navigation, route }) => {
             />
           </View>
         </View>
+
+        {/* Delete Modal */}
+        {/* <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                Are you want to sure delete the secret ?
+              </Text>
+              <View style={styles.buttonContainer}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Close</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.deleteButton]}
+                  onPress={() => handleDelete()}
+                >
+                  <Text style={styles.textStyle}>Delete</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal> */}
       </View>
 
-      {/* delete secret action sheet */}
-      <ActionSheet ref={deleteActionSheetRef}>
-        <View style={styles.actionSheet}>
-          <View style={styles.deleteButton}>
-            <Text>Delete Secret</Text>
-          </View>
-          <TouchableHighlight
-            onPress={() => deleteActionSheetRef.current?.hide()}
-          >
-            <Text style={styles.close}>Close</Text>
-          </TouchableHighlight>
-        </View>
-      </ActionSheet>
       {/* edit icon action sheet */}
       <ActionSheet ref={actionSheetRef}>
         <View style={styles.actionSheet}>
@@ -231,5 +257,53 @@ const styles = StyleSheet.create({
     padding: "10px 20px",
     backgroundColor: "red",
     color: "white",
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    width: "80%",
+    backgroundColor: "white",
+    borderRadius: 15,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    borderRadius: 20,
+    padding: "10px 20px",
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: "orange",
+  },
+  deleteButton: {
+    backgroundColor: "red",
+    marginLeft: 5,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
